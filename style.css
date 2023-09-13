@@ -1,5 +1,6 @@
 * {
     box-sizing: border-box;
+    user-select: none;
 }
 
 body {
@@ -11,9 +12,12 @@ body {
 
 .container {
     width: 200vw;
-    height: 80vh;
+    height: 100vh;
     display: flex;
-    transition: all 1s;
+    transition: transform 1s;
+    background-color: rgb(184, 116, 27);
+    z-index: 0;
+    padding-bottom: 20vh;
 }
 
 .container.move {
@@ -21,19 +25,19 @@ body {
 }
 
 .room1 {
-    background-color: beige;
+    background-image: url(./images/background.webp);
     width: 50%;
     height: 100%;
     display: flex;
-    padding-bottom: 50px;
+    z-index: 1;
 }
 
 .room2 {
-    background-color: lime;
+    background-image: url(./images/background.webp);
     width: 50%;
     height: 100%;
     display: flex;
-    padding-bottom: 50px;
+    z-index: 1;
 }
 
 .right-arrow, .left-arrow {
@@ -42,7 +46,7 @@ body {
     right: 10px;
     top: 40vh;
     height: 20vh;
-    z-index: 1;
+    z-index: 2;
 }
 
 .left-arrow {
@@ -61,7 +65,7 @@ body {
     display: flex;
 }
 
-.right-arrow:hover, .left-arrow:hover, .clickable:hover, .book:hover, .paper-ball:hover, .item:hover {
+.right-arrow:hover, .left-arrow:hover, .clickable:hover, .book:hover, .paper-ball:hover, .item:hover, .key:hover {
     filter: brightness(0.8);
 }
 
@@ -78,12 +82,24 @@ body {
     display:flex;
     flex-direction: column;
     justify-content: end;
+    align-items: center;
     margin-left: 5%;
+}
+
+.shelf-image {
+    height: 70%;
+    box-sizing: content-box;
+}
+
+.shelf-image:hover {
+    border: 8px solid yellow;
 }
 
 .bookshelf-container {
     display: flex;
     align-items: end;
+    width: 30%;
+    justify-content: center;
 }
 
 .frame-container {
@@ -112,17 +128,17 @@ body {
     position: absolute;
     width: 80vw;
     height: 70vh;
-    background-color: rgb(255, 255, 255);
-    margin-left: 10vw;
+    background-color: beige;
+    left: 10vw;
     top: 15vh;
     z-index: 5;
     border-radius: 15px;
 }
 
-.bookshelf {
+.bookshelf, .shelf {
     justify-content: center;
     gap: 2px;
-    padding: 10% 0;
+    align-items: center;
 }
 
 .book {
@@ -143,29 +159,121 @@ body {
 
 .inventory {
     width: 100vw;
-    height: 20vh;
-    background-color: rgb(184, 116, 27);
+    height: 10vh;
+    position: absolute;
+    bottom: 0;
     display: flex;
-    gap: 5vw;
     align-items: center;
+    gap: 5vw;
     padding: 0 5vw;
+
 }
 
 .item {
     aspect-ratio: 1;
-    height: 90%;
+    height: 9vh;
     border: 5px solid #e6e6e6;
     border-radius: 20px;
     display: flex;
     justify-content: center;
     align-items: center;
+    position: relative;
+    z-index: 10;
 }
 
 .item > img {
-    height: 90%;
+    width: 90%;
     pointer-events: none;
+    object-fit: contain;
 }
 
 .item.selected {
     border-color: yellow;
+}
+
+.paper-ball {
+    width: 50px;
+}
+
+.piano-container {
+    display: flex;
+    align-items: end;
+    justify-content: center;
+    width: 50%;
+    gap: 5vw;
+}
+
+.piano-container > img{
+    object-fit:contain;
+}
+
+.piano {
+    align-items: center;
+    justify-content: center;
+    display: none;
+}
+
+.piano.appear {
+    display: flex;
+}
+
+.keysw{
+    border : 1px solid black;
+    background-color : white;
+    height : 200px;
+    width : 50px;
+    display: flex;
+    justify-content: center;
+    align-items: end;
+}
+
+.keysbparents{
+    top : 31%;
+    position : absolute;
+    display : flex;
+    justify-content: center;
+    width: 500px;
+    gap: 70px;
+    pointer-events: none;
+}
+
+.keysbparents > div {
+    display: flex;
+    gap: 20px;
+    pointer-events: none;
+}
+
+.keysb{
+    position : relative;
+    background-color : rgb(2, 2, 2);
+    height : 130px;
+    width : 30px;
+    display: flex;
+    align-items: end;
+    justify-content: center;
+    pointer-events: all;
+    color: white;
+}
+
+.keysb:hover{
+    border : 1px solid blue;
+}
+
+.keysw:hover{
+    border : 1px solid blue;
+}
+
+.door-container {
+    display: flex;
+    width: 30%;
+    justify-content: center;
+    align-items: end;
+}
+
+.shelf-container, .bookshelf-container {
+    margin-bottom: -5vh;
+}
+
+.piano-container {
+    margin-bottom: -10vh;
 }

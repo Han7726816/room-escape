@@ -8,24 +8,31 @@
     <script src="main.js" defer></script>
 </head>
 <body>
-    <img src="./images/left.jpg" alt="" class="left-arrow">
-    <img src="./images/right.jpg" alt="" class="right-arrow appear">
+    <img src="./images/left.png" alt="" class="left-arrow">
+    <img src="./images/right.png" alt="" class="right-arrow appear">
     <div class="container">
         <div class="room1">
             <div class="clock-container">
                 <img src="./images/clock.png" alt="">
             </div>
             <div class="frame-container">
-                <img src="./images/frame.jpg" alt="" class="clickable">
+                <img src="./images/frame.png" alt="" class="clickable" id="frame">
             </div>
             <div class="shelf-container">
                 <img class="paper-ball" src="./images/paper ball.webp" alt="">
-                <img src="./images/shelf.jpg" alt="" class="clickable" id="shelf">
+                <img src="./images/shelf.png" alt="" class="clickable" id="shelf">
             </div>
         </div>
         <div class="room2">
             <div class="bookshelf-container">
-                <img src="./images/bookshelf.jpg" alt="" class="clickable" id="bookshelf">
+                <img src="./images/bookshelf.png" alt="" class="clickable" id="bookshelf">
+            </div>
+            <div class="piano-container">
+                <img class="clickable" src="./images/piano.png" id="piano" width = "278px">
+                <img class="key" src="./images/key.png" alt="" width="50px">
+            </div>
+            <div class="door-container">
+                <img src="./images/closed-door.png" alt="">
             </div>
         </div>
     </div>
@@ -49,7 +56,41 @@
     </div>
 
     <div class="popup shelf">
+            <img class="shelf-image" src="./images/closed-shelf.png" alt="">
+    </div>
+
+    <div class="popup frame">
 
     </div>
+
+    <div class = "popup piano" id = "thepiano">
+        <audio id = "paudio">
+        </audio>
+        <div class = "keysbparents">
+            <div>
+                <div class = "keysb keys" id = "CS">C#</div>
+                <div class = "keysb keys" id = "DS" >D#</div>
+            </div>
+            <div>
+                <div class = "keysb keys" id = "FS">F#</div>
+                <div class = "keysb keys" id = "GS">G#</div>
+                <div class = "keysb keys" id = "AS">A#</div>
+            </div>
+            <div>
+                <div class = "keysb keys" id = "C1S">C#</div>
+                <div class = "keysb keys" id = "D1S">D#</div>
+            </div>
+        </div>
+        <div class = "keysw keys" id = "C">C</div>
+        <div class = "keysw keys" id = "D">D</div>
+        <div class = "keysw keys" id = "E">E</div>
+        <div class = "keysw keys" id = "F">F</div>
+        <div class = "keysw keys" id = "G">G</div>
+        <div class = "keysw keys" id = "A">A</div>
+        <div class = "keysw keys" id = "B">B</div>
+        <div class = "keysw keys" id = "C1">C</div>
+        <div class = "keysw keys" id = "D1">D</div>
+        <div class = "keysw keys" id = "E1">E</div>
+    </div> 
 </body>
 </html>
