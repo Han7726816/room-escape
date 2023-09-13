@@ -2,12 +2,16 @@ let rightArrow = document.querySelector(".right-arrow")
 let leftArrow = document.querySelector(".left-arrow")
 let container = document.querySelector(".container")
 let darken = document.querySelector(".darken")
+let inventory = document.querySelector(".inventory")
+let paperBall = document.querySelector(".paper-ball")
 let books = document.querySelectorAll('.book')
 let popups = Array.from(document.querySelectorAll('.popup'))
 let clickables = document.querySelectorAll('.clickable')
 let selectedBook = ''
+let selectedItem = ''
 let bookOrder = Array.from(books)
 let correctBookOrder = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+
 
 rightArrow.addEventListener('click', () => {
     container.classList.add('move')
@@ -26,6 +30,18 @@ darken.addEventListener('click', () => {
         popup.classList.remove('appear')
     }
     darken.classList.remove('appear')
+})
+
+paperBall.addEventListener('click', () => {
+    let div = document.createElement('div')
+    let img = document.createElement('img')
+    img.src = paperBall.src
+    div.classList.add('item')
+    div.appendChild(img)
+    inventory.appendChild(div)
+    paperBall.remove()
+
+    div.addEventListener('click', selectItem)
 })
 
 for (const book of books) {
@@ -83,4 +99,15 @@ function selectBook(e) {
         selectedBook = ''
         book.classList.remove('selected')
     } else bookSwap(selectedBook, book)
+}
+
+function selectItem(e) {
+    let item = e.target
+    if (selectedItem == item) {
+        selectedItem = ''
+        item.classList.remove('selected')
+    } else {
+        selectedItem = item
+        item.classList.add('selected')
+    }
 }
