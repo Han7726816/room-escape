@@ -4,11 +4,14 @@ let container = document.querySelector(".container")
 let darken = document.querySelector(".darken")
 let inventory = document.querySelector(".inventory")
 let paperBall = document.querySelector(".paper-ball")
+let drawerPiece = document.querySelector(".drawer-piece")
 let key = document.querySelector(".key")
+let missing = document.querySelector(".missing")
 let shelf = document.querySelector('.shelf-image')
 let books = document.querySelectorAll('.book')
-let popups = Array.from(document.querySelectorAll('.popup'))
 let clickables = document.querySelectorAll('.clickable')
+let popups = Array.from(document.querySelectorAll('.popup'))
+let pieces = Array.from(document.querySelectorAll('.piece'))
 let keys = Array.from(document.querySelectorAll('.keys'))
 let selectedBook = ''
 let selectedItem = ''
@@ -49,6 +52,19 @@ paperBall.addEventListener('click', () => {
     div.addEventListener('click', selectItem)
 })
 
+drawerPiece.addEventListener('click', () => {
+    let div = document.createElement('div')
+    let img = document.createElement('img')
+    img.src = drawerPiece.src
+    div.classList.add('item')
+    div.dataset.name = 'drawer-piece'
+    div.appendChild(img)
+    inventory.appendChild(div)
+    drawerPiece.remove()
+
+    div.addEventListener('click', selectItem)
+})
+
 key.addEventListener('click', () => {
     let div = document.createElement('div')
     let img = document.createElement('img')
@@ -65,6 +81,19 @@ key.addEventListener('click', () => {
 shelf.addEventListener('click', () => {
     if (selectedItem == 'drawer-key') {
         shelf.src = "./images/open-shelf.png"
+        drawerPiece.classList.add('appear')
+    }
+})
+
+missing.addEventListener('click', () => {
+    if (selectedItem == 'drawer-piece') {
+        missing.src = "./images/piece5.png"
+        missing.classList.remove('missing')
+        
+        for (const piece of pieces) {
+            piece.addEventListener('click', rotatePiece)
+            piece.classList.add('clickable')
+        }
     }
 })
 
@@ -83,6 +112,11 @@ for (const clickable of clickables) {
 
 for (const key of keys) {
     key.addEventListener('click', pianokeys)
+}
+
+for (const piece of pieces) {
+    piece.style.transform = 'rotate(' + piece.dataset.rotation + "deg)"
+    
 }
 
 function bookSwap(book1, book2) {
@@ -148,10 +182,21 @@ function selectItem(e) {
 function pianokeys(e){
     let x = e.target.id
     piano.push(x);
-    x = "./pianosound/".concat(x)
-    document.getElementById("paudio").src= x.concat(".mp3");
-    document.getElementById("paudio").play();
+    x = "./pianosound/" + x + ".mp3"
+    let audio = document.createElement('audio')
+    audio.src= x;
+    audio.play();
     if(piano.join().includes("G,AS,C1,GS,G,F,DS,F,C1,AS,C1,G,DS,F,DS")){
        // do your shit here after correct rhythm
     }
+}
+
+function rotatePiece(e) {
+    let piece = e.target
+    let rotation = parseInt(piece.dataset.rotation) + 90
+    if (rotation >= 360) rotation = 0
+
+    piece.style.transform = 'rotate(' + rotation + "deg)"
+    piece.dataset.rotation = rotation
+
 }

@@ -65,7 +65,7 @@ body {
     display: flex;
 }
 
-.right-arrow:hover, .left-arrow:hover, .clickable:hover, .book:hover, .paper-ball:hover, .item:hover, .key:hover {
+.right-arrow:hover, .left-arrow:hover, .clickable:hover, .book:hover, .paper-ball:hover, .item:hover, .key:hover, .drawer-piece:hover {
     filter: brightness(0.8);
 }
 
@@ -109,6 +109,30 @@ body {
     justify-content: center;
 }
 
+.frame > div {
+    box-sizing: content-box;
+    border: 5px solid brown;
+    width: 513px;
+    display: grid;
+    grid-template-rows: repeat(3, 1fr);
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.missing:hover {
+    background-color: rgba(159, 159, 159, 0.5);
+}
+
+.drawer-piece {
+    display: none;
+    position: absolute;
+    height: 5vh;
+    top: 40vh;
+}
+
+.drawer-piece.appear {
+    display: inline-block;
+}
+
 #bookshelf {
     height: 80%;
 }
@@ -135,7 +159,7 @@ body {
     border-radius: 15px;
 }
 
-.bookshelf, .shelf {
+.bookshelf, .shelf, .frame {
     justify-content: center;
     gap: 2px;
     align-items: center;
@@ -145,7 +169,6 @@ body {
     width: 50px; 
     height: 370px;
     background-color: red;
-    transition: order 1s;
 }
 
 .book.selected {
@@ -213,6 +236,10 @@ body {
     display: none;
 }
 
+.piano > div {
+    display: flex;
+}
+
 .piano.appear {
     display: flex;
 }
@@ -227,8 +254,7 @@ body {
     align-items: end;
 }
 
-.keysbparents{
-    top : 31%;
+.keysbparents {
     position : absolute;
     display : flex;
     justify-content: center;
