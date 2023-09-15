@@ -5,6 +5,7 @@ let darken = document.querySelector(".darken")
 let inventory = document.querySelector(".inventory")
 let paperBall = document.querySelector(".paper-ball")
 let drawerPiece = document.querySelector(".drawer-piece")
+let frameNote = document.querySelector(".frame-note")
 let key = document.querySelector(".key")
 let missing = document.querySelector(".missing")
 let shelf = document.querySelector('.shelf-image')
@@ -52,31 +53,11 @@ paperBall.addEventListener('click', () => {
     div.addEventListener('click', selectItem)
 })
 
-drawerPiece.addEventListener('click', () => {
-    let div = document.createElement('div')
-    let img = document.createElement('img')
-    img.src = drawerPiece.src
-    div.classList.add('item')
-    div.dataset.name = 'drawer-piece'
-    div.appendChild(img)
-    inventory.appendChild(div)
-    drawerPiece.remove()
+drawerPiece.addEventListener('click', () => {addToInventory(drawerPiece, "drawer-piece")})
 
-    div.addEventListener('click', selectItem)
-})
+key.addEventListener('click', () => {addToInventory(key, 'drawer-key')})
 
-key.addEventListener('click', () => {
-    let div = document.createElement('div')
-    let img = document.createElement('img')
-    img.src = key.src
-    div.classList.add('item')
-    div.dataset.name = 'drawer-key'
-    div.appendChild(img)
-    inventory.appendChild(div)
-    key.remove()
-
-    div.addEventListener('click', selectItem)
-})
+frameNote.addEventListener('click', () => {addToInventory(frameNote, 'frame-note')})
 
 shelf.addEventListener('click', () => {
     if (selectedItem == 'drawer-key') {
@@ -199,4 +180,22 @@ function rotatePiece(e) {
     piece.style.transform = 'rotate(' + rotation + "deg)"
     piece.dataset.rotation = rotation
 
+    let incorrectPieces = pieces.filter(p => {return parseInt(p.dataset.rotation) != 0 && p.src !== "./images/piece3.png"})
+
+    if (incorrectPieces.length == 0) {
+        
+    }
+}
+
+function addToInventory(element, name) {
+    let div = document.createElement('div')
+    let img = document.createElement('img')
+    img.src = element.src
+    div.classList.add('item')
+    div.dataset.name = name
+    div.appendChild(img)
+    inventory.appendChild(div)
+    element.remove()
+
+    div.addEventListener('click', selectItem)
 }
