@@ -6,14 +6,15 @@
 body {
     overflow: hidden;
     margin: 0;
-    height: 100vh;
+    height: 200vh;
     background-color: black;
 }
 
 .container {
     width: 200vw;
     height: 100vh;
-    display: flex;
+    display: grid;
+    grid-template-columns: 100vw 100vw;
     transition: transform 1s;
     background-color: rgb(184, 116, 27);
     z-index: 0;
@@ -24,20 +25,26 @@ body {
     transform: translateX(-100vw);
 }
 
-.room1 {
+.container.up {
+    transform: translateX(-100vw) translateY(-100vh);
+}
+
+.room1, .room2 {
     background-image: url(./images/background.webp);
-    width: 50%;
     height: 100%;
     display: flex;
     z-index: 1;
 }
 
-.room2 {
-    background-image: url(./images/background.webp);
-    width: 50%;
-    height: 100%;
-    display: flex;
-    z-index: 1;
+.room3 {
+    width: 100vw;
+    height: 100vh;
+    transition: transform 1s;
+    background-color: green;
+}
+
+.room3.up {
+    transform: translateY(-100vh);
 }
 
 .right-arrow, .left-arrow {
@@ -65,16 +72,21 @@ body {
     display: flex;
 }
 
-.right-arrow:hover, .left-arrow:hover, .clickable:hover, .book:hover, .paper-ball:hover, .item:hover, .key:hover, .drawer-piece:hover, .piano-note {
+.right-arrow:hover, .left-arrow:hover, .clickable:hover, .book:hover, .paper-ball:hover, .item:hover, .key:hover, .drawer-piece:hover, .book-note:hover, .frame-note:hover, .hole:hover, .upper-door.hover:hover {
     filter: brightness(0.8);
 }
 
 .clock-container{
-    width: 15%;
-    padding: 3% 10%;
+    width: 40%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+    align-items: center;
+    gap: 40vh;
 }
 
-.clock-container > img, #shelf {
+#shelf {
     width: 150px;
 }
 
@@ -103,10 +115,14 @@ body {
 }
 
 .frame-container {
-    width: 40%;
+    padding-top: 20vh;
+    width: 30%;
+    height: 100%;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: start;
+    flex-direction: column;
+    gap: 40vh;
 }
 
 .square {
@@ -124,13 +140,12 @@ body {
 }
 
 .frame-note {
-    display: none;
     position: absolute;
     transition: transform 1s;
+    z-index: -1;
 }
 
 .frame-note.appear {
-    display: block;
     transform: translateX(5vw) rotate(45deg);
 }
 
@@ -365,4 +380,16 @@ body {
     display: flex;
     align-items: end;
     margin-bottom: -10vh;
+}
+
+.note {
+    padding: 5% 15%;
+    font-size: 24px;
+    text-align: center;
+    line-height: 1.5;
+}
+
+.piano1 > img {
+    width: 100%;
+    object-fit: contain;
 }

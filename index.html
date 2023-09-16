@@ -14,7 +14,8 @@
     <div class="container">
         <div class="room1">
             <div class="clock-container">
-                <img src="./images/clock.png" alt="">
+                <img src="./images/clock.png" alt="" width="150px">
+                <img src="./images/bed.png" alt="" width="400px" style="margin-bottom: -5vh;">
             </div>
             <div class="frame-container">
                 <img src="./images/frame.png" alt="" class="clickable" id="frame">
@@ -35,12 +36,15 @@
                 <img class="key" src="./images/key.png" alt="" width="50px">
             </div>
             <div class="door-container">
-                <img src="./images/closed-door.png" alt="">
+                <img src="./images/closed-door.png" alt="" class="upper-door">
             </div>
         </div>
     </div>
+    <div class="room3"></div>
     <div class="inventory">
-        <!-- <div class="item"><img src="./images/paper ball.webp" alt=""></div> -->
+        <div class="item" id="piano1">
+            <img src="./images/piano-note1.png" alt="">
+        </div>
     </div>
     <div class="darken">
 
@@ -58,7 +62,7 @@
             <img class="book" style="order:4" src="./images/book8.png" data-order="9">
             <img class="book" style="order:6" src="./images/book9.png" data-order="10">
         </div>
-        <img class="book-note" src="./images/piano-note.png">
+        <img class="book-note" src="./images/piano-note1.png">
     </div>
 
     <div class="popup shelf">
@@ -71,7 +75,7 @@
             <div class="square">
                 <img src="./images/piece1.png" alt="" class="piece" data-rotation="90">
                 <img src="./images/piece2.png" alt="" class="piece" data-rotation="270">
-                <img src="./images/piece3.png" alt="" class="piece" data-rotation="180">
+                <img src="./images/piece3.png" alt="" class="piece ignore" data-rotation="0">
                 <img src="./images/piece4.png" alt="" class="piece" data-rotation="90">
                 <img src="" alt=""            class="missing piece" data-rotation="0">
                 <img src="./images/piece6.png" alt="" class="piece" data-rotation="270">
@@ -82,7 +86,6 @@
             <img class="frame-note" src="./images/frame-paper.png"></img>
         </div>
     </div>
-
     <div class = "popup piano" id = "thepiano">
         <div>
             <div class = "keysbparents">
@@ -112,5 +115,37 @@
             <div class = "keysw keys" id = "E1">E1</div>
         </div>
     </div> 
+
+    <div class="popup piano1 note">
+        <img src="./images/piano-note1.png" alt="">
+    </div>
+
+    <div class="popup note1 note">
+        Once upon a time, there was a kid. Inspired by multiple pianists in the world, he decided to become one himself in the future. 
+        He then joins a piano competition at the age of 9. He won. He hanged the photo of him 
+        winning on the wall. The other day, he was asked to let one of the competitors to visit his house to
+        share experience. And while he was gone to the toilet, the competitor felt jealous and tore the 
+        picture while his parents were talking and put the torn piece into a drawer. The kid only 
+        realised it afterwards.
+    </div>
+
+    <div class="popup note2 note">
+        However, the boy did not let that incident get the better of him. He wrote multiple music sheets and slid it into the first page of every book in the
+        bookshelf. He thought that every book now has its own opening, and arranged every book according to its colour and
+        height, with green on the left and blue on the right in ascending order. Unfortunately, when his father came to find his car keys and somehow shuffled the books. <br> 
+        He then thought of something: <br>
+        What if the sheet of the last book of the series is a code to a secret pathway?
+        What if playing the piano with certain melody triggers a secret doorpath? Thinking about it, he slowly fell asleep.
+    </div>
+
+    <div class="popup note3 note">
+        It was around midnight that he woke up and realised that his dad took him to bed because he saw
+        him sleeping on the floor. He noticed that his alarm clock was 3pm which clearly did not match up. He then brought it to 
+        the secret room to try and fix it, but had a sudden inspiration and went to write sheet music 
+        instead. He titled it "My favourite song". After finishing the whole rhythm, he accidentally tore the
+        sheet music apart without realising it due to tiredness and took the other half to his bedroom and slept with it.
+    </div>
+
+    
 </body>
 </html>

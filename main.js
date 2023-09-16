@@ -1,6 +1,7 @@
 let rightArrow = document.querySelector(".right-arrow")
 let leftArrow = document.querySelector(".left-arrow")
 let container = document.querySelector(".container")
+let room3 = document.querySelector(".room3")
 let darken = document.querySelector(".darken")
 let inventory = document.querySelector(".inventory")
 let upper = document.querySelector(".upper")
@@ -10,7 +11,9 @@ let drawerPiece = document.querySelector(".drawer-piece")
 let frameNote = document.querySelector(".frame-note")
 let bookNote = document.querySelector(".book-note")
 let key = document.querySelector(".key")
+let upperDoor = document.querySelector(".upper-door")
 let missing = document.querySelector(".missing")
+let piano1 = document.querySelector("#piano1")
 let shelf = document.querySelector('.shelf-image')
 let books = document.querySelectorAll('.book')
 let clickables = document.querySelectorAll('.clickable')
@@ -23,6 +26,7 @@ let piano = [];
 let bookOrder = Array.from(books)
 let correctBookOrder = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 let upperId
+let upperDoorOpened = false
 
 
 rightArrow.addEventListener('click', () => {
@@ -44,31 +48,35 @@ darken.addEventListener('click', () => {
     darken.classList.remove('appear')
 })
 
-paperBall.addEventListener('click', () => {
-    let div = document.createElement('div')
-    let img = document.createElement('img')
-    img.src = paperBall.src
-    div.classList.add('item')
-    div.dataset.name = 'paper-ball'
-    div.appendChild(img)
-    inventory.appendChild(div)
-    paperBall.remove()
+piano1.addEventListener('click', () => {openPopup("piano1")})
 
-    div.addEventListener('click', selectItem)
+paperBall.addEventListener('click', () => {
+    let item = addToInventory(paperBall, 'paper-ball', false)
+
+    item.addEventListener('click', () => {openPopup("note1")})
 })
 
-drawerPiece.addEventListener('click', () => {addToInventory(drawerPiece, "drawer-piece")})
+drawerPiece.addEventListener('click', () => {addToInventory(drawerPiece, "drawer-piece", true)})
 
-key.addEventListener('click', () => {addToInventory(key, 'drawer-key')})
+key.addEventListener('click', () => {addToInventory(key, 'drawer-key', true)})
 
-frameNote.addEventListener('click', () => {addToInventory(frameNote, 'frame-note')})
+frameNote.addEventListener('click', () => {
+    let item = addToInventory(frameNote, 'frame-note', false)
 
-bookNote.addEventListener('click', () => {addToInventory(bookNote, 'book-note')})
+    item.addEventListener('click', () => {openPopup("note2")})
+})
+
+bookNote.addEventListener('click', () => {
+    let item = addToInventory(bookNote, 'book-note', false)
+    
+    item.addEventListener('click', () => {openPopup("piano3")})
+})
 
 shelf.addEventListener('click', () => {
     if (selectedItem == 'drawer-key') {
         shelf.src = "./images/open-shelf.png"
         drawerPiece.classList.add('appear')
+        shelf.style.pointerEvents = "none"
     } else displayUpper("Locked")
 })
 
@@ -89,12 +97,7 @@ for (const book of books) {
 }
 
 for (const clickable of clickables) {
-    clickable.addEventListener('click', () => {
-        let correspondingPopup = popups.filter(p => {return p.classList.contains(clickable.id)})[0]
-
-        correspondingPopup.classList.add('appear')
-        darken.classList.add('appear')
-    })
+    clickable.addEventListener('click', () => {openPopup(clickable.id)})
 }
 
 for (const key of keys) {
@@ -171,12 +174,14 @@ function selectItem(e) {
 function pianokeys(e){
     let x = e.target.id
     piano.push(x);
-    x = "./pianosound/" + x + ".mp3"
+    x = "./audio/" + x + ".mp3"
     let audio = document.createElement('audio')
     audio.src= x;
     audio.play();
-    if(piano.join().includes("G,AS,C1,GS,G,F,DS,F,C1,AS,C1,G,DS,F,DS")){
-       // do your shit here after correct rhythm
+    if(piano.join().includes("D,C,D,G,A,AS,A,AS,A,F,C,C,D,C,D,G,F,D,AS")){
+       openDoor()
+    } else if (piano.join().includes("A,A,A")) {
+        openDoor()
     }
 }
 
@@ -188,14 +193,14 @@ function rotatePiece(e) {
     piece.style.transform = 'rotate(' + rotation + "deg)"
     piece.dataset.rotation = rotation
 
-    let incorrectPieces = pieces.filter(p => {return parseInt(p.dataset.rotation) != 0 && p.src !== "./images/piece3.png"})
+    let incorrectPieces = pieces.filter(p => {return parseInt(p.dataset.rotation) != 0 && !p.classList.contains('ignore')})
 
     if (incorrectPieces.length == 0) {
         frameNote.classList.add('appear')
     }
 }
 
-function addToInventory(element, name) {
+function addToInventory(element, name, selectable) {
     let div = document.createElement('div')
     let img = document.createElement('img')
     img.src = element.src
@@ -205,7 +210,9 @@ function addToInventory(element, name) {
     inventory.appendChild(div)
     element.remove()
 
-    div.addEventListener('click', selectItem)
+    if (selectable) div.addEventListener('click', selectItem)
+
+    return div
 }
 
 function displayUpper(text) {
@@ -215,4 +222,30 @@ function displayUpper(text) {
     upperId = setTimeout(() => {
         upper.classList.remove('appear')
     }, 3000)
+}
+
+function openPopup(id) {
+    for (const popup of popups) {
+        popup.classList.remove('appear')
+    }
+    let correspondingPopup = popups.filter(p => {return p.classList.contains(id)})[0]
+
+    correspondingPopup.classList.add('appear')
+    darken.classList.add('appear')
+
+}
+
+function openDoor() {
+    if (!upperDoorOpened) {
+        upperDoor.addEventListener('click', () => {
+            room3.classList.add('up')
+            container.classList.add('up')
+        })
+        upperDoor.classList.add('hover')
+        let audio = document.createElement('audio')
+        audio.src = "./audio/door open.mp3"
+        audio.play()
+        displayUpper("Something has opened...")
+        upperDoorOpened = true
+    }
 }
