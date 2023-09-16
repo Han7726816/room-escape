@@ -10,6 +10,7 @@
 <body>
     <img src="./images/left.png" alt="" class="left-arrow">
     <img src="./images/right.png" alt="" class="right-arrow appear">
+    <div class="upper"></div>
     <div class="container">
         <div class="room1">
             <div class="clock-container">
@@ -29,6 +30,8 @@
             </div>
             <div class="piano-container">
                 <img class="clickable" src="./images/piano.png" id="piano" width = "278px">
+            </div>
+            <div class="key-container">
                 <img class="key" src="./images/key.png" alt="" width="50px">
             </div>
             <div class="door-container">
@@ -43,16 +46,19 @@
 
     </div>
     <div class="popup bookshelf">
-        <div class="book" style="order:3" data-order="1">a</div>
-        <div class="book" style="order:1" data-order="2">b</div>
-        <div class="book" style="order:5" data-order="3">c</div>
-        <div class="book" style="order:7" data-order="4">d</div>
-        <div class="book" style="order:9" data-order="5">e</div>
-        <div class="book" style="order:2" data-order="6">f</div>
-        <div class="book" style="order:8" data-order="7">g</div>
-        <div class="book" style="order:10" data-order="8">h</div>
-        <div class="book" style="order:4" data-order="9">i</div>
-        <div class="book" style="order:6" data-order="10">sss</div>
+        <div class="bookdiv">
+            <img class="book" style="order:3" src="./images/book3.png" data-order="1">
+            <img class="book" style="order:1" src="./images/book1.png" data-order="2">
+            <img class="book" style="order:5" src="./images/book4.png" data-order="3">
+            <img class="book" style="order:7" src="./images/book2.png" data-order="4">
+            <img class="book" style="order:9" src="./images/book6.png" data-order="5">
+            <img class="book" style="order:2" src="./images/book5.png" data-order="6">
+            <img class="book" style="order:8" src="./images/book7.png" data-order="7">
+            <img class="book" style="order:10" src="./images/book10.png" data-order="8">
+            <img class="book" style="order:4" src="./images/book8.png" data-order="9">
+            <img class="book" style="order:6" src="./images/book9.png" data-order="10">
+        </div>
+        <img class="book-note" src="./images/piano-note.png">
     </div>
 
     <div class="popup shelf">
@@ -73,7 +79,7 @@
                 <img src="./images/piece8.png" alt="" class="piece" data-rotation="90">
                 <img src="./images/piece9.png" alt="" class="piece" data-rotation="180">
             </div>
-            <img class="frame-note" src="./images/frame-paper.avif"></img>
+            <img class="frame-note" src="./images/frame-paper.png"></img>
         </div>
     </div>
 
@@ -90,8 +96,8 @@
                     <div class = "keysb keys" id = "AS">A#</div>
                 </div>
                 <div>
-                    <div class = "keysb keys" id = "C1S">C#</div>
-                    <div class = "keysb keys" id = "D1S">D#</div>
+                    <div class = "keysb keys" id = "C1S">C1#</div>
+                    <div class = "keysb keys" id = "D1S">D1#</div>
                 </div>
             </div>
             <div class = "keysw keys" id = "C">C</div>
@@ -101,9 +107,9 @@
             <div class = "keysw keys" id = "G">G</div>
             <div class = "keysw keys" id = "A">A</div>
             <div class = "keysw keys" id = "B">B</div>
-            <div class = "keysw keys" id = "C1">C</div>
-            <div class = "keysw keys" id = "D1">D</div>
-            <div class = "keysw keys" id = "E1">E</div>
+            <div class = "keysw keys" id = "C1">C1</div>
+            <div class = "keysw keys" id = "D1">D1</div>
+            <div class = "keysw keys" id = "E1">E1</div>
         </div>
     </div> 
 </body>

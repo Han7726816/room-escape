@@ -3,9 +3,12 @@ let leftArrow = document.querySelector(".left-arrow")
 let container = document.querySelector(".container")
 let darken = document.querySelector(".darken")
 let inventory = document.querySelector(".inventory")
+let upper = document.querySelector(".upper")
+let bookDiv = document.querySelector(".bookdiv")
 let paperBall = document.querySelector(".paper-ball")
 let drawerPiece = document.querySelector(".drawer-piece")
 let frameNote = document.querySelector(".frame-note")
+let bookNote = document.querySelector(".book-note")
 let key = document.querySelector(".key")
 let missing = document.querySelector(".missing")
 let shelf = document.querySelector('.shelf-image')
@@ -19,6 +22,7 @@ let selectedItem = ''
 let piano = [];
 let bookOrder = Array.from(books)
 let correctBookOrder = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+let upperId
 
 
 rightArrow.addEventListener('click', () => {
@@ -59,11 +63,13 @@ key.addEventListener('click', () => {addToInventory(key, 'drawer-key')})
 
 frameNote.addEventListener('click', () => {addToInventory(frameNote, 'frame-note')})
 
+bookNote.addEventListener('click', () => {addToInventory(bookNote, 'book-note')})
+
 shelf.addEventListener('click', () => {
     if (selectedItem == 'drawer-key') {
         shelf.src = "./images/open-shelf.png"
         drawerPiece.classList.add('appear')
-    }
+    } else displayUpper("Locked")
 })
 
 missing.addEventListener('click', () => {
@@ -130,6 +136,8 @@ function bookSwap(book1, book2) {
         for (const book of bookOrder) {
             book.removeEventListener('click', selectBook)
         }
+        bookDiv.classList.add('clear')
+        bookNote.classList.add('appear')
     }
 }
 
@@ -183,7 +191,7 @@ function rotatePiece(e) {
     let incorrectPieces = pieces.filter(p => {return parseInt(p.dataset.rotation) != 0 && p.src !== "./images/piece3.png"})
 
     if (incorrectPieces.length == 0) {
-        
+        frameNote.classList.add('appear')
     }
 }
 
@@ -198,4 +206,13 @@ function addToInventory(element, name) {
     element.remove()
 
     div.addEventListener('click', selectItem)
+}
+
+function displayUpper(text) {
+    upper.classList.add('appear')
+    upper.innerText = text
+    clearTimeout(upperId)
+    upperId = setTimeout(() => {
+        upper.classList.remove('appear')
+    }, 3000)
 }
