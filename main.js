@@ -1,19 +1,27 @@
 let rightArrow = document.querySelector(".right-arrow")
 let leftArrow = document.querySelector(".left-arrow")
 let container = document.querySelector(".container")
-let room3 = document.querySelector(".room3")
+let container2 = document.querySelector(".container2")
 let darken = document.querySelector(".darken")
 let inventory = document.querySelector(".inventory")
 let upper = document.querySelector(".upper")
 let bookDiv = document.querySelector(".bookdiv")
 let paperBall = document.querySelector(".paper-ball")
+let lastNote = document.querySelector(".last-note")
 let drawerPiece = document.querySelector(".drawer-piece")
 let frameNote = document.querySelector(".frame-note")
 let bookNote = document.querySelector(".book-note")
 let key = document.querySelector(".key")
+let finalAns = document.querySelector(".finalans")
 let upperDoor = document.querySelector(".upper-door")
+let lowerDoor = document.querySelector(".lower-door")
+let mainDoor = document.querySelector(".main-door")
 let missing = document.querySelector(".missing")
 let piano1 = document.querySelector("#piano1")
+let timeLock = document.querySelector("#timelock")
+let pianoLock = document.querySelector("#pianolock")
+let doorLock = document.querySelector("#doorlock")
+let locks = document.querySelector(".locks")
 let shelf = document.querySelector('.shelf-image')
 let books = document.querySelectorAll('.book')
 let clickables = document.querySelectorAll('.clickable')
@@ -27,6 +35,9 @@ let bookOrder = Array.from(books)
 let correctBookOrder = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 let upperId
 let upperDoorOpened = false
+let passwordUnlocked = false
+let pianoUnlocked = false
+let timeUnlocked = false
 
 
 rightArrow.addEventListener('click', () => {
@@ -72,6 +83,12 @@ bookNote.addEventListener('click', () => {
     item.addEventListener('click', () => {openPopup("piano3")})
 })
 
+lastNote.addEventListener('click', () => {
+    let item = addToInventory(lastNote, 'last-note', false)
+    
+    item.addEventListener('click', () => {openPopup("note3")})
+})
+
 shelf.addEventListener('click', () => {
     if (selectedItem == 'drawer-key') {
         shelf.src = "./images/open-shelf.png"
@@ -91,6 +108,25 @@ missing.addEventListener('click', () => {
         }
     }
 })
+
+lowerDoor.addEventListener('click', () => {
+    container2.classList.remove('up')
+    container.classList.remove('up')
+    leftArrow.classList.add('appear')
+    locks.classList.remove('appear')
+})
+
+finalAns.addEventListener('input', () => {
+    if (finalAns.value.toLowerCase() == "jun hao") {
+        doorLock.remove()
+        passwordUnlocked = true
+        checkForMainDoor()
+    }
+})
+
+window.onbeforeunload = () => {
+    window.scrollTo(0, 0);
+}
 
 for (const book of books) {
     book.addEventListener('click', selectBook)
@@ -179,9 +215,15 @@ function pianokeys(e){
     audio.src= x;
     audio.play();
     if(piano.join().includes("D,C,D,G,A,AS,A,AS,A,F,C,C,D,C,D,G,F,D,AS")){
-       openDoor()
-    } else if (piano.join().includes("A,A,A")) {
-        openDoor()
+       pianoLock.remove()
+       pianoUnlocked = true
+       let audio = document.createElement('audio')
+       audio.src = "./audio/door open.mp3"
+       audio.play()
+       displayUpper("Something has opened...")
+       checkForMainDoor()
+    } else if (piano.join().includes("G,AS,C1,GS,G,F,DS,F,C1,AS,C1,G,DS,F,DS")) {
+        openUpperDoor()
     }
 }
 
@@ -193,7 +235,7 @@ function rotatePiece(e) {
     piece.style.transform = 'rotate(' + rotation + "deg)"
     piece.dataset.rotation = rotation
 
-    let incorrectPieces = pieces.filter(p => {return parseInt(p.dataset.rotation) != 0 && !p.classList.contains('ignore')})
+    let incorrectPieces = pieces.filter(p => {return parseInt(p.dataset.rotation)})
 
     if (incorrectPieces.length == 0) {
         frameNote.classList.add('appear')
@@ -234,14 +276,16 @@ function openPopup(id) {
     darken.classList.add('appear')
 
 }
-
-function openDoor() {
+function openUpperDoor() {
     if (!upperDoorOpened) {
         upperDoor.addEventListener('click', () => {
-            room3.classList.add('up')
+            container2.classList.add('up')
             container.classList.add('up')
+            leftArrow.classList.remove('appear')
+            locks.classList.add('appear')
         })
         upperDoor.classList.add('hover')
+        upperDoor.src = "./images/open-door.png"
         let audio = document.createElement('audio')
         audio.src = "./audio/door open.mp3"
         audio.play()
@@ -249,3 +293,41 @@ function openDoor() {
         upperDoorOpened = true
     }
 }
+
+function openMainDoor() {
+    if (!mainDoorOpened) {
+        mainDoor.addEventListener('click', () => {
+            window.location = "ending.html"
+        })
+        mainDoor.classList.add('hover')
+        let audio = document.createElement('audio')
+        audio.src = "./audio/door open.mp3"
+        audio.play()
+        displayUpper("Something has opened...")
+    }
+}
+
+function changetime(x){
+    x = x.split(":");
+    if(x[0] <= 12){
+        x = x.join(":");
+    document.getElementById("alarmclock").innerHTML = x + "AM";
+    }
+    if(x[0] > 12){
+        x[0] = x[0] - 12;
+        x = x.join(":");
+        document.getElementById("alarmclock").innerHTML = x + "PM";
+    }
+    if (x == "01:00") {
+        timeLock.remove()
+        let audio = document.createElement('audio')
+        timeUnlocked = true
+        audio.src = "./audio/door open.mp3"
+        audio.play()
+        displayUpper("Something has opened...")
+    }
+ }
+
+ function checkForMainDoor() {
+    if (timeUnlocked && pianoUnlocked && passwordUnlocked) openMainDoor()
+ }
