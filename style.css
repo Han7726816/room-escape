@@ -22,31 +22,31 @@ body {
     padding-bottom: 20vh;
 }
 
-.container.move {
+.container.move, .container2.move {
     transform: translateX(-100vw);
 }
 
-.container.up {
+.container.up, .container2.up {
     transform: translateX(-100vw) translateY(-100vh);
 }
 
-.room1, .room2 {
+.container2.left {
+    transform: translateY(-100vh);
+}
+
+.room1, .room2, .room3, .final-room {
     background-image: url(./images/background.webp);
     height: 100%;
     display: flex;
     z-index: 1;
 }
 
-.room3 {
+.lobby{
     width: 100vw;
     height: 100%;
     transition: transform 1s;
-    background-image: url(./images/background.webp);
     display: flex;
-}
-
-.container2.up {
-    transform: translateY(-100vh);
+    background-image: url(./images/background.webp);
 }
 
 .right-arrow, .left-arrow {
@@ -74,7 +74,7 @@ body {
     display: flex;
 }
 
-.right-arrow:hover, .left-arrow:hover, .clickable:hover, .book:hover, .paper-ball:hover, .item:hover, .key:hover, .drawer-piece:hover, .book-note:hover, .frame-note:hover, .hole:hover, .hover:hover, .last-note:hover {
+.right-arrow:hover, .left-arrow:hover, .clickable:hover, .book:hover, .paper-ball:hover, .item:hover, .key:hover, .drawer-piece:hover, .book-note:hover, .frame-note:hover, .hole:hover, .hover:hover, .last-note:hover, .pianoadd:hover, .play:hover {
     filter: brightness(0.8);
 }
 
@@ -240,11 +240,14 @@ body {
     height: 10vh;
     position: absolute;
     bottom: 0;
-    display: flex;
+    display: none;
     align-items: center;
     gap: 5vw;
     padding: 0 5vw;
+}
 
+.inventory.appear {
+    display: flex;
 }
 
 .item {
@@ -379,6 +382,7 @@ body {
 
 .key-container {
     width: 10%;
+    /* height : 10%; */
     display: flex;
     align-items: end;
     margin-bottom: -10vh;
@@ -391,18 +395,13 @@ body {
     line-height: 1.5;
 }
 
-.piano1 > img {
-    width: 100%;
-    object-fit: contain;
-}
-
 .table-container {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: end;
     width: 50%;
-    height: 100%;
+    height: 110%;
 }   
 
 .table-container > img{
@@ -481,9 +480,39 @@ body {
     border: 3px solid red;
 }
 
-.piano2{
+.piano2, .piano1, .piano3{
     display: none;
     justify-content : center;
     align-items: center;
+}
+
+.piano2 > img, .piano1 > img, .piano3 > img {
+    width: 100%;
+}
+
+.start {
+    background-image: url(./images/background.webp);
+    position: absolute;
+    width: 110vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    z-index: 10;
+    display: flex;
     flex-direction: column;
+    gap: 20vh;
+    align-items: center;
+    padding: 10%;
+    padding-right: calc(10% + 10vw);
+    transition: all 1s;
+}
+
+.start.fade {
+    filter: opacity(0);
+    pointer-events: none;
+}
+
+.title {
+    font-size: 64px;
+    color: white;
 }

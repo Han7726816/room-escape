@@ -12,6 +12,9 @@ let drawerPiece = document.querySelector(".drawer-piece")
 let frameNote = document.querySelector(".frame-note")
 let bookNote = document.querySelector(".book-note")
 let key = document.querySelector(".key")
+let play = document.querySelector(".play")
+let start = document.querySelector(".start")
+let pianoAdd = document.querySelector(".pianoadd")
 let finalAns = document.querySelector(".finalans")
 let upperDoor = document.querySelector(".upper-door")
 let lowerDoor = document.querySelector(".lower-door")
@@ -38,16 +41,19 @@ let upperDoorOpened = false
 let passwordUnlocked = false
 let pianoUnlocked = false
 let timeUnlocked = false
+let mainDoorOpened = false
 
 
 rightArrow.addEventListener('click', () => {
     container.classList.add('move')
+    container2.classList.add('move')
     rightArrow.classList.remove('appear')
     leftArrow.classList.add('appear')
 })
 
 leftArrow.addEventListener('click', () => {
     container.classList.remove('move')
+    container2.classList.remove('move')
     rightArrow.classList.add('appear')
     leftArrow.classList.remove('appear')
 })
@@ -81,6 +87,12 @@ bookNote.addEventListener('click', () => {
     let item = addToInventory(bookNote, 'book-note', false)
     
     item.addEventListener('click', () => {openPopup("piano3")})
+})
+
+pianoAdd.addEventListener('click', () => {
+    let item = addToInventory(pianoAdd, 'piano2', false)
+    
+    item.addEventListener('click', () => {openPopup("piano2")})
 })
 
 lastNote.addEventListener('click', () => {
@@ -122,6 +134,11 @@ finalAns.addEventListener('input', () => {
         passwordUnlocked = true
         checkForMainDoor()
     }
+})
+
+play.addEventListener('click', () => {
+    start.classList.add('fade')
+    inventory.classList.add('appear')
 })
 
 window.onbeforeunload = () => {
@@ -215,7 +232,7 @@ function pianokeys(e){
     audio.src= x;
     audio.play();
     if(piano.join().includes("D,C,D,G,A,AS,A,AS,A,F,C,C,D,C,D,G,F,D,AS")){
-       pianoLock.remove()
+       pianoLock.remove()   
        pianoUnlocked = true
        let audio = document.createElement('audio')
        audio.src = "./audio/door open.mp3"
@@ -274,8 +291,8 @@ function openPopup(id) {
 
     correspondingPopup.classList.add('appear')
     darken.classList.add('appear')
-
 }
+
 function openUpperDoor() {
     if (!upperDoorOpened) {
         upperDoor.addEventListener('click', () => {
@@ -297,13 +314,14 @@ function openUpperDoor() {
 function openMainDoor() {
     if (!mainDoorOpened) {
         mainDoor.addEventListener('click', () => {
-            window.location = "ending.html"
+            container2.classList.add('left')
         })
         mainDoor.classList.add('hover')
         let audio = document.createElement('audio')
         audio.src = "./audio/door open.mp3"
         audio.play()
         displayUpper("Something has opened...")
+        mainDoorOpened = true
     }
 }
 
