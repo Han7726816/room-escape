@@ -139,6 +139,7 @@ finalAns.addEventListener('input', () => {
 play.addEventListener('click', () => {
     start.classList.add('fade')
     inventory.classList.add('appear')
+    // playBgm()
 })
 
 window.onbeforeunload = () => {
@@ -227,16 +228,11 @@ function selectItem(e) {
 function pianokeys(e){
     let x = e.target.id
     piano.push(x);
-    x = "./audio/" + x + ".mp3"
-    let audio = document.createElement('audio')
-    audio.src= x;
-    audio.play();
+    playAudio(x)
     if(piano.join().includes("D,C,D,G,A,AS,A,AS,A,F,C,C,D,C,D,G,F,D,AS")){
        pianoLock.remove()   
        pianoUnlocked = true
-       let audio = document.createElement('audio')
-       audio.src = "./audio/door open.mp3"
-       audio.play()
+       playAudio("door open")
        displayUpper("Something has opened...")
        checkForMainDoor()
     } else if (piano.join().includes("G,AS,C1,GS,G,F,DS,F,C1,AS,C1,G,DS,F,DS")) {
@@ -303,9 +299,7 @@ function openUpperDoor() {
         })
         upperDoor.classList.add('hover')
         upperDoor.src = "./images/open-door.png"
-        let audio = document.createElement('audio')
-        audio.src = "./audio/door open.mp3"
-        audio.play()
+        playAudio("door open")
         displayUpper("Something has opened...")
         upperDoorOpened = true
     }
@@ -317,9 +311,7 @@ function openMainDoor() {
             container2.classList.add('left')
         })
         mainDoor.classList.add('hover')
-        let audio = document.createElement('audio')
-        audio.src = "./audio/door open.mp3"
-        audio.play()
+        playAudio("door open")
         displayUpper("Something has opened...")
         mainDoorOpened = true
     }
@@ -338,10 +330,8 @@ function changetime(x){
     }
     if (x == "01:00") {
         timeLock.remove()
-        let audio = document.createElement('audio')
         timeUnlocked = true
-        audio.src = "./audio/door open.mp3"
-        audio.play()
+        playAudio("door open")
         displayUpper("Something has opened...")
     }
  }
@@ -349,3 +339,17 @@ function changetime(x){
  function checkForMainDoor() {
     if (timeUnlocked && pianoUnlocked && passwordUnlocked) openMainDoor()
  }
+
+function playBgm(){
+    let audio = document.createElement("audio");
+    audio.src = "./audio/lobby.mp3"
+    audio.loop = true;
+    audio.volume = 0.5;
+    audio.play()
+}
+
+function playAudio(source) {
+    let audio = document.createElement('audio')
+    audio.src= "./audio/" + source + ".mp3";
+    audio.play();
+}
