@@ -11,10 +11,12 @@ let lastNote = document.querySelector(".last-note")
 let drawerPiece = document.querySelector(".drawer-piece")
 let frameNote = document.querySelector(".frame-note")
 let bookNote = document.querySelector(".book-note")
+let sheet = document.querySelector(".sheet")
 let key = document.querySelector(".key")
 let play = document.querySelector(".play")
 let start = document.querySelector(".start")
 let pianoAdd = document.querySelector(".pianoadd")
+let pianoContainer = document.querySelector(".piano")
 let finalAns = document.querySelector(".finalans")
 let upperDoor = document.querySelector(".upper-door")
 let lowerDoor = document.querySelector(".lower-door")
@@ -65,12 +67,17 @@ darken.addEventListener('click', () => {
     darken.classList.remove('appear')
 })
 
-piano1.addEventListener('click', () => {openPopup("piano1")})
+piano1.addEventListener('click', () => {
+    if (pianoContainer.classList.contains("appear")) sheet.src = "./images/piano-part1.png"
+    else openPopup("piano1")
+})
 
 paperBall.addEventListener('click', () => {
     let item = addToInventory(paperBall, 'paper-ball', false)
 
-    item.addEventListener('click', () => {openPopup("note1")})
+    item.addEventListener('click', () => {
+        openPopup("note1")
+    })
 })
 
 drawerPiece.addEventListener('click', () => {addToInventory(drawerPiece, "drawer-piece", true)})
@@ -86,13 +93,19 @@ frameNote.addEventListener('click', () => {
 bookNote.addEventListener('click', () => {
     let item = addToInventory(bookNote, 'book-note', false)
     
-    item.addEventListener('click', () => {openPopup("piano3")})
+    item.addEventListener('click', () => {
+    if (pianoContainer.classList.contains("appear")) sheet.src = "./images/piano-note3.png"
+    else openPopup("piano3")
+    })
 })
 
 pianoAdd.addEventListener('click', () => {
     let item = addToInventory(pianoAdd, 'piano2', false)
     
-    item.addEventListener('click', () => {openPopup("piano2")})
+    item.addEventListener('click', () => {
+        if (pianoContainer.classList.contains("appear")) sheet.src = "./images/piano-part2.png"
+        else openPopup("piano2")
+    })
 })
 
 lastNote.addEventListener('click', () => {
@@ -132,6 +145,8 @@ finalAns.addEventListener('input', () => {
     if (finalAns.value.toLowerCase() == "jun hao") {
         doorLock.remove()
         passwordUnlocked = true
+        playAudio("door open")
+        displayUpper("Something has opened...")
         checkForMainDoor()
     }
 })
@@ -139,7 +154,7 @@ finalAns.addEventListener('input', () => {
 play.addEventListener('click', () => {
     start.classList.add('fade')
     inventory.classList.add('appear')
-    // playBgm()
+    playBgm()
 })
 
 window.onbeforeunload = () => {
@@ -309,10 +324,9 @@ function openMainDoor() {
     if (!mainDoorOpened) {
         mainDoor.addEventListener('click', () => {
             container2.classList.add('left')
+            playAudio("ending", 0.2)
         })
         mainDoor.classList.add('hover')
-        playAudio("door open")
-        displayUpper("Something has opened...")
         mainDoorOpened = true
     }
 }
@@ -344,12 +358,13 @@ function playBgm(){
     let audio = document.createElement("audio");
     audio.src = "./audio/lobby.mp3"
     audio.loop = true;
-    audio.volume = 0.5;
+    audio.volume = 0.3;
     audio.play()
 }
 
-function playAudio(source) {
+function playAudio(source, volume = 1) {
     let audio = document.createElement('audio')
     audio.src= "./audio/" + source + ".mp3";
+    audio.volume = volume
     audio.play();
 }

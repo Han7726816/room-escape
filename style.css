@@ -42,12 +42,16 @@ body {
     z-index: 1;
 }
 
-.lobby{
-    width: 100vw;
-    height: 100%;
-    transition: transform 1s;
-    display: flex;
-    background-image: url(./images/background.webp);
+.final-room {
+    justify-content: center;
+    align-items: end;
+}
+
+.final-room > img {
+    height: 100vh;
+    object-fit: cover;
+    margin-bottom: -20vh;
+    position: absolute;
 }
 
 .right-arrow, .left-arrow {
@@ -75,7 +79,7 @@ body {
     display: flex;
 }
 
-.right-arrow:hover, .left-arrow:hover, .clickable:hover, .book:hover, .paper-ball:hover, .item:hover, .key:hover, .drawer-piece:hover, .book-note:hover, .frame-note:hover, .hole:hover, .hover:hover, .last-note:hover, .pianoadd:hover, .play:hover {
+.right-arrow:hover, .left-arrow:hover, .clickable:hover, .book:hover, .paper-ball:hover, .item:hover, .key:hover, .drawer-piece:hover, .book-note:hover, .frame-note:hover, .hole:hover, .hover:hover, .last-note:hover, .pianoadd:hover, .play:hover, .lower-door:hover {
     filter: brightness(0.8);
 }
 
@@ -292,8 +296,11 @@ body {
 }
 
 .piano {
+    flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: end;
+    padding-bottom: 10%;
+    gap: 5%;
     display: none;
 }
 
@@ -418,6 +425,10 @@ body {
     grid-template-columns: 1fr 1fr;
     margin-bottom: -2vh;
     z-index: 1;
+}
+
+.floor-note {
+    margin-bottom: -10vh !important;
 }
 
 .doorlock-container {
