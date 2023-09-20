@@ -324,6 +324,7 @@ function openMainDoor() {
     if (!mainDoorOpened) {
         mainDoor.addEventListener('click', () => {
             container2.classList.add('left')
+            document.getElementById("forstop").pause();
             playAudio("ending", 0.2)
         })
         mainDoor.classList.add('hover')
@@ -355,8 +356,7 @@ function changetime(x){
  }
 
 function playBgm(){
-    let audio = document.createElement("audio");
-    audio.src = "./audio/lobby.mp3"
+    let audio = document.getElementById("forstop");
     audio.loop = true;
     audio.volume = 0.3;
     audio.play()
