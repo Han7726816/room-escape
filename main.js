@@ -348,6 +348,7 @@ function changetime(x){
         timeUnlocked = true
         playAudio("door open")
         displayUpper("Something has opened...")
+        checkForMainDoor()
     }
  }
 
